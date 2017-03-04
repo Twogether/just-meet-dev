@@ -17,4 +17,4 @@ git -C just-meet-api remote add upstream https://github.com/twogether/just-meet-
 
 echo "Clone the app project from github to ../just-meet-frontend"
 git clone https://github.com/$1/just-meet-frontend.git just-meet-frontend
-git -C project/just-meet-frontend remote add upstream https://github.com/twogether/just-meet-frontend.git
+git -C just-meet-frontend remote add upstream https://github.com/twogether/just-meet-frontend.git
