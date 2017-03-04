@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+    db:
+        image: mysql
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: monkey
+            MYSQL_DATABASE: just_meet
+            MYSQL_USER: just_meet
+            MYSQL_PASSWORD: just_meet
+    php:
+        build: ../just-meet-api/
+        ports:
+            - 9000:9000
+        volumes:
+            - ../just-meet-api:/var/www/symfony
+    nginx:
+        image: nginx
+        ports:
+            - 80:80
+        volumes_from:
+            - php
+        volumes:
+            - ./site.conf:/etc/nginx/conf.d/site.conf
+        links:
+            - php
+    frontend:
+        build: ../just-meet-frontend/
+        volumes: 
+            - ../just-meet-frontend:/usr/src/app
+        ports:
+            - 8081:8081
+            - 3000:3000
+            - 3001:3001
