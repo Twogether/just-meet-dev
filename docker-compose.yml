@@ -12,8 +12,18 @@ services:
             MYSQL_PASSWORD: just_meet
     php:
         build: ../just-meet-api/
+        environment:
+            - JAWSDB_URL
         ports:
             - 9000:9000
+        volumes:
+            - ../just-meet-api:/var/www/symfony
+    worker:
+        build: 
+            context: ../just-meet-api/
+            dockerfile: Dockerfile.worker
+        environment:
+            - JAWSDB_URL
         volumes:
             - ../just-meet-api:/var/www/symfony
     nginx:
